@@ -1,0 +1,78 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          <h2>Hero Form</h2>
+          {{ model | json }}
+        </div>
+        <div class="card-body">
+          <form action="" #heroForm="ngForm" (ngSubmit)="onSubmit()">
+            <ng-container *ngIf="!submitted">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input
+                  type="text"
+                  name="heroName"
+                  id="name"
+                  class="form-control"
+                  placeholder="Name"
+                  #heroName="ngModel"
+                  [(ngModel)]="model.name"
+                  required
+                />
+              </div>
+              <div
+                *ngIf="!heroName.valid || !heroName.pristine"
+                class="alert-danger"
+              >
+                Name is required
+              </div>
+
+              <div class="form-group">
+                <label for="name">Alter Ego</label>
+                <input
+                  type="text"
+                  name="alterEgo"
+                  id="alter"
+                  class="form-control"
+                  placeholder="AlterEgo"
+                  [(ngModel)]="model.alterEgo"
+                />
+              </div>
+              <div class="form-group">
+                <label for="name">Hero Power</label>
+                <select
+                  name="heroPowers "
+                  id="heroPower"
+                  [(ngModel)]="model.power"
+                  class="form-control"
+                >
+                  <option *ngFor="let pow of powers" [value]="pow">
+                    {{ pow }}
+                  </option>
+                </select>
+              </div>
+            </ng-container>
+
+            <button
+              type="button"
+              class="btn btn-default"
+              (click)="newHero(); heroForm.reset()"
+            >
+              New Hero
+            </button>
+            <button
+              type="submit"
+              *ngIf="!submitted"
+              class="btn btn-success"
+              [disabled]="!heroForm.form.valid"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
